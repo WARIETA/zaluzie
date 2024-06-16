@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Žaluzie Měření</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Žaluzie Měření</h1>
+    <form>
+        <div>
+            <label for="barva-lamely">Barva lamely:</label>
+            <input type="text" id="barva-lamely">
+        </div>
+        <div>
+            <label for="barva-nosniku">Barva nosníku:</label>
+            <input type="text" id="barva-nosniku">
+        </div>
+        <div>
+            <label for="typ-nosniku">Typ nosníku:</label>
+            <select id="typ-nosniku">
+                <option value="Economic">Economic</option>
+                <option value="Popular">Popular</option>
+                <option value="Old">Old</option>
+                <option value="Gold">Gold</option>
+            </select>
+        </div>
+        <div>
+            <label for="typ-okna">Typ okna:</label>
+            <select id="typ-okna">
+                <option value="plast">Plast</option>
+                <option value="euro">Euro</option>
+            </select>
+        </div>
+        <div>
+            <label for="sklo">Sklo:</label>
+            <select id="sklo">
+                <option value="dvojsklo">Dvojsklo</option>
+                <option value="trojsklo">Trojsklo</option>
+            </select>
+        </div>
+        <div>
+            <label for="sirka">Šířka (cm):</label>
+            <input type="number" id="sirka">
+        </div>
+        <div>
+            <label for="vyska">Výška (cm):</label>
+            <input type="number" id="vyska">
+        </div>
+        <div>
+            <button type="button" onclick="addEntry('L')">L</button>
+            <button type="button" onclick="addEntry('R')">R</button>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Typ</th>
+                <th>Rozměry (cm)</th>
+                <th>Počet</th>
+                <th>Obsah (m²)</th>
+                <th>Celkový obsah (m²)</th>
+                <th>Akce</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Záznamy budou přidány sem -->
+        </tbody>
+    </table>
+
+    <div id="total-area">dohromady: 0m2</div>
+
+    <button id="kopirovat-button" onclick="copyToClipboard()">Kopírovat</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
