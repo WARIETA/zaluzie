@@ -7,8 +7,9 @@ function addEntry(type) {
     var sklo = document.getElementById('sklo').value;
     var sirkaCm = document.getElementById('sirka').value; // Šířka v centimetrech
     var vyskaCm = document.getElementById('vyska').value; // Výška v centimetrech
+    var pokoj = document.getElementById('pokoj').value; // Pokoj
 
-    if (!barvaLamely || !barvaNosniku || !typNosniku || !typOkna || !sklo || !sirkaCm || !vyskaCm) {
+    if (!barvaLamely || !barvaNosniku || !typNosniku || !typOkna || !sklo || !sirkaCm || !vyskaCm || !pokoj) {
         alert("Prosím vyplňte všechna pole.");
         return;
     }
@@ -22,7 +23,7 @@ function addEntry(type) {
     var celkovyObsah = (obsah * pocet).toFixed(2); // Celkový obsah v m2
 
     // Generování řádku tabulky
-    var newRow = "<tr><td>" + type + "</td><td>" + sirkaCm + "x" + vyskaCm + "</td><td class='count'>" + pocet + "x</td><td class='area'>" + obsah + "m2</td><td>(" + celkovyObsah + "m2)</td><td><button onclick='increaseCount(this)'>+</button> <button onclick='decreaseCount(this)'>-</button></td></tr>";
+    var newRow = "<tr><td>" + pokoj + "</td><td>" + type + "</td><td>" + sirkaCm + "x" + vyskaCm + "</td><td class='count'>" + pocet + "x</td><td class='area'>" + obsah + "m2</td><td>(" + celkovyObsah + "m2)</td><td><button onclick='increaseCount(this)'>+</button> <button onclick='decreaseCount(this)'>-</button></td></tr>";
 
     // Přidání řádku do tabulky
     document.getElementById('table-body').innerHTML += newRow;
@@ -85,7 +86,7 @@ function updateRowArea(row) {
     var count = parseInt(row.getElementsByClassName('count')[0].innerText);
     var areaCell = row.getElementsByClassName('area')[0];
     var area = parseFloat(areaCell.innerText.replace("m2", ""));
-    var totalAreaCell = row.getElementsByTagName('td')[4];
+    var totalAreaCell = row.getElementsByTagName('td')[5];
     var totalArea = (area * count).toFixed(2);
     totalAreaCell.innerText = "(" + totalArea + "m2)";
 }
@@ -101,18 +102,15 @@ function copyToClipboard() {
     var tableRows = document.getElementById('table-body').getElementsByTagName('tr');
     for (var i = 0; i < tableRows.length; i++) {
         var cells = tableRows[i].getElementsByTagName('td');
-        copiedText += cells[0].innerText + " " + cells[1].innerText + " " + cells[2].innerText + " " + cells[3].innerText + " " + cells[4].innerText + "\n";
+        copiedText += cells[0].innerText + " " + cells[1].innerText + " " + cells[2].innerText + " " + cells[3].innerText + " " + cells[4].innerText + " " + cells[5].innerText + "\n";
     }
     
-    // Přidání mezery před celkovým obsahem
-    copiedText += "\n";
-
     // Zobrazení celkového obsahu
-    copiedText += "dohromady: " + calculateTotalArea() + "m2";
+    copiedText += "\ndohromady: " + calculateTotalArea() + "m2";
 
     // Kopírování do schránky
     navigator.clipboard.writeText(copiedText).then(function() {
-        alert("Zkopírováno do schránky:\n\n" + copiedText);
+        alert("Zkopírováno!");
     }, function(err) {
         alert("Chyba při kopírování: ", err);
     });
@@ -123,7 +121,7 @@ function calculateTotalArea() {
     var totalArea = 0;
     var tableRows = document.getElementById('table-body').getElementsByTagName('tr');
     for (var i = 0; i < tableRows.length; i++) {
-        var totalAreaString = tableRows[i].getElementsByTagName('td')[4].innerText.trim();
+        var totalAreaString = tableRows[i].getElementsByTagName('td')[5].innerText.trim();
         var totalAreaValue = parseFloat(totalAreaString.replace("m2", "").replace("(", "").replace(")", ""));
         totalArea += totalAreaValue;
     }
@@ -135,3 +133,10 @@ function updateTotalArea() {
     var totalArea = calculateTotalArea();
     document.getElementById('total-area').innerText = "dohromady: " + totalArea + "m2";
 }
+
+// Prevence proti náhodnému opuštění stránky
+window.addEventListener('beforeunload', function (e) {
+    var confirmationMessage = 'Opravdu chcete opustit tuto stránku? Vaše data nebudou uložena.';
+    e.returnValue = confirmationMessage;
+    return confirmationMessage;
+});

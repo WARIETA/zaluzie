@@ -36,44 +36,44 @@
         <div>
             <label for="sklo">Sklo:</label>
             <select id="sklo">
-                <option value="dvojsklo">Dvojsklo</option>
-                <option value="trojsklo">Trojsklo</option>
+                <option value="dvojsklo">dvojsklo</option>
+                <option value="trojsklo">trojsklo</option>
             </select>
         </div>
         <div>
             <label for="sirka">Šířka (cm):</label>
-            <input type="number" id="sirka">
+            <input type="text" id="sirka">
         </div>
         <div>
             <label for="vyska">Výška (cm):</label>
-            <input type="number" id="vyska">
+            <input type="text" id="vyska">
         </div>
         <div>
-            <button type="button" onclick="addEntry('L')">L</button>
-            <button type="button" onclick="addEntry('R')">R</button>
+            <label for="pokoj">Pokoj:</label>
+            <input type="text" id="pokoj">
+        </div>
+        <div class="button-container">
+            <button type="button" onclick="addEntry('L')" class="wide-button">L</button>
+            <button type="button" onclick="addEntry('R')" class="wide-button">R</button>
         </div>
     </form>
-
+    <hr>
     <table>
         <thead>
             <tr>
+                <th>Pokoj</th>
                 <th>Typ</th>
-                <th>Rozměry (cm)</th>
+                <th>Rozměr (cm)</th>
                 <th>Počet</th>
-                <th>Obsah (m²)</th>
-                <th>Celkový obsah (m²)</th>
+                <th>Obsah (m2)</th>
+                <th>Celkový Obsah</th>
                 <th>Akce</th>
             </tr>
         </thead>
-        <tbody id="table-body">
-            <!-- Záznamy budou přidány sem -->
-        </tbody>
+        <tbody id="table-body"></tbody>
     </table>
-
-    <div id="total-area">dohromady: 0m2</div>
-
-    <button id="kopirovat-button" onclick="copyToClipboard()">Kopírovat</button>
-
+    <p id="total-area">dohromady: 0m2</p>
+    <button onclick="copyToClipboard()">Kopírovat</button>
     <script src="script.js"></script>
 </body>
 </html>
