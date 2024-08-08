@@ -20,6 +20,12 @@ function addEntry(type) {
 
     var pocet = 1; // Výchozí počet žaluzií
     var obsah = (sirka * vyska).toFixed(2); // Výpočet obsahu žaluzie v m2
+
+    // Zaokrouhlení na 1 m² pokud je obsah menší než 1 m²
+    if (obsah < 1) {
+        obsah = 1.00;
+    }
+
     var celkovyObsah = (obsah * pocet).toFixed(2); // Celkový obsah v m2
 
     // Generování řádku tabulky
